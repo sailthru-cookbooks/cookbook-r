@@ -1,0 +1,59 @@
+<%
+# To keep the YAML as simple as possible, some values are computed here
+AWS_ACCESS_KEY_ID = ENV['AWS_ACCESS_KEY_ID'] ||'(ENTER_ACCESS_KEY_ID)'
+AWS_ACCESS_KEY_SECRET = ENV['AWS_SECRET_KEY'] || '(ENTER_AWS_SECRET_ID)'
+AWS_SSH_KEY_ID = ENV['AWS_SSH_KEY_ID'] || 'default'
+AWS_SSH_KEYPATH = File.expand_path(ENV['AWS_SSH_KEY_PATH'] || "#{ENV['HOME']}/.ssh/id_rsa")
+AWS_FLAVOR_ID = ENV['AWS_FLAVOR_ID'] || 'm3.medium'
+%>
+---
+driver:
+  name: ec2
+  aws_access_key_id: <%= AWS_ACCESS_KEY_ID %>
+  aws_secret_access_key: <%= AWS_ACCESS_KEY_SECRET %>
+  aws_ssh_key_id: <%= AWS_SSH_KEY_ID %>
+  ssh_key: <%= AWS_SSH_KEYPATH %>
+  security_group_ids: ['sg-fb6cfa9e'] # test-kitchen
+  region: us-east-1
+  availability_zone: us-east-1c
+  flavor_id: <%= AWS_FLAVOR_ID %>
+  subnet_id: subnet-3e010678
+  associate_public_ip: true
+  iam_profile_name: test-kitchen
+  use_iam_profile: false 
+  require_chef_omnibus: true
+  tags:
+    created-by: 'test-kitchen'
+    launched-by: <%= ENV['USER'] || '(ENTER_USER)' %>
+    Name: 'test-kitchen-cookbook-r-<%= Time.now.to_i %>'
+
+busser:
+  sudo: true
+  plugins: 
+    - serverspec@0.2.0
+    - rspec@0.7.4
+    - minitest
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 11.12.2
+  data_path: test/shared
+
+platforms:
+- name: ubuntu-14.04
+  run_list:
+    - recipe[apt]
+  driver_config:
+    image_id: ami-018c9568
+    username: ubuntu
+
+suites:
+- name: default
+  data_bags_path: 'test/integration/default/data_bags'
+  run_list:
+    - recipe[r::default]
+  attributes:
+    r:
+      version: '3.1.1'
+      install_repo: true
+      install_method: 'dist'
