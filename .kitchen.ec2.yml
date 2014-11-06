@@ -48,12 +48,21 @@ platforms:
     username: ubuntu
 
 suites:
-- name: default
+- name: r-dist-3.1.1
   data_bags_path: 'test/integration/default/data_bags'
   run_list:
     - recipe[r::default]
   attributes:
     r:
       version: '3.1.1'
+      install_repo: true
+      install_method: 'dist'
+- name: r-dist-3.1.2
+  data_bags_path: 'test/integration/default/data_bags'
+  run_list:
+    - recipe[r::default]
+  attributes:
+    r:
+      version: '3.1.2'
       install_repo: true
       install_method: 'dist'
