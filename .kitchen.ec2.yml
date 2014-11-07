@@ -54,7 +54,7 @@ suites:
     - recipe[r::default]
   attributes:
     r:
-      version: '3.1.1'
+      version: '3.1.1-1trusty0'
       install_repo: true
       install_method: 'dist'
 - name: r-dist-3.1.2
@@ -63,6 +63,6 @@ suites:
     - recipe[r::default]
   attributes:
     r:
-      version: '3.1.2'
+      version: '3.1.2-1trusty0'
       install_repo: true
       install_method: 'dist'

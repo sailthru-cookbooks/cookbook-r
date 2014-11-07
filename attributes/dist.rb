@@ -1,5 +1,5 @@
 default['r']['dist'] = {
-  '3.1.1' => {
+  '3.1.1-1trusty0' => {
     'r-recommended' => '3.1.1-1trusty0',
     'r-doc-html' => '3.1.1-1trusty0',
     'r-cran-survival' => '2.37-7-1',
@@ -22,7 +22,7 @@ default['r']['dist'] = {
     'r-base-core' => '3.1.1-1trusty0',
     'r-base' => '3.1.1-1trusty0'
   },
-  '3.1.2' => {
+  '3.1.2-1trusty0' => {
     'r-base' => '3.1.2-1trusty0',
     'r-base-core' => '3.1.2-1trusty0',
     'r-base-dev' => '3.1.2-1trusty0',
