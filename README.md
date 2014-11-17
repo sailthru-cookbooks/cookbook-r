@@ -32,6 +32,15 @@ to nil to always get the latest version.
   is a hash of hashes, where the top level hash contains versions as keys, the
   associated value is a hash of package names and versions.
 
+Helper scripts for *dist* install method
+========================================
+
+There are two scripts provided to help the maintenance of "dist" installation method:
+
+* `misc/generate_r_dep_attr_hash.sh`: used to generate a dependency list of packages for a given version. Usage scenario is: 1. install the desired version of R using the distribution's package manager, 2. run the script. Uses *apt* to generate the result
+
+* `misc/generate_r_dep_serverspec.sh`: used to generate a *ServerSpec* test case that can be used to verify the installation of the packages e.g. via *kitchen*
+
 # Providers
 
 
@@ -51,14 +60,6 @@ mirror must be set.  The default recipe sets this for you.
   version.
 
 * `:remove`: Removes the package if it is installed.
-
-## Helper scripts for *dist* install method
-
-There are two scripts provided to help the maintenance of "dist" installation method:
-
-* `misc/generate_r_dep_attr_hash.sh`: used to generate a dependency list of packages for a given version. Usage scenario is: 1. install the desired version of R using the distribution's package manager, 2. run the script. Uses *apt* to generate the result
-
-* `misc/generate_r_dep_serverspec.sh`: used to generate a *ServerSpec* test case that can be used to verify the installation of the packages e.g. via *kitchen*
 
 ## Examples
 
